@@ -286,7 +286,19 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
+
   _.memoize = function(func) {
+    var results = {};
+    var result;
+
+    return function() {
+      let args = JSON.stringify(arguments);
+      if (results[args] === undefined) {
+        result = func.apply(this, arguments);
+        results[args] = result;
+      }
+      return results[args];
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -296,6 +308,16 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    let args = [];
+    _.each(arguments, function(arg, idx) {
+      if (idx > 1) {
+        args.push(arg);
+      }
+    });
+
+    setTimeout(function() {
+      func.apply(null, args);
+    }, wait);
   };
 
 
