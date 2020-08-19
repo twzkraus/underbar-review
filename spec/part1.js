@@ -21,8 +21,8 @@
 
     describe('identity', function() {
 
-      it('should not use any built-in functions', function() {
-        checkForNativeMethods(_.identity());
+      checkForNativeMethods(function() {
+        _.identity([3, 2, 1]);
       });
 
       it('should return whatever value is passed into it', function() {
@@ -35,6 +35,10 @@
     });
 
     describe('first', function() {
+
+      checkForNativeMethods(function() {
+        _.first([3, 2, 1]);
+      });
 
       it('should be able to pull out the first element of an array', function() {
         expect(_.first([1, 2, 3])).to.equal(1);
@@ -57,6 +61,10 @@
 
     describe('last', function() {
 
+      checkForNativeMethods(function() {
+        _.last([3, 2, 1]);
+      });
+
       it('should pull the last element from an array', function() {
         expect(_.last([1, 2, 3])).to.equal(3);
       });
@@ -76,8 +84,8 @@
 
     describe('each', function() {
 
-      it('should not use any built-in functions', function() {
-        checkForNativeMethods(_.each);
+      checkForNativeMethods(function() {
+        _.each([1, 2, 3, 4, 5], _.identity);
       });
 
       it('should not return anything', function() {
@@ -224,6 +232,10 @@
 
     describe('indexOf', function() {
 
+      checkForNativeMethods(function() {
+        _.indexOf([1, 2, 3, 4, 5], 4);
+      });
+
       it('should find 40 in the list', function() {
         var numbers = [10, 20, 30, 40, 50];
 
@@ -250,6 +262,10 @@
 
     describe('filter', function() {
 
+      checkForNativeMethods(function() {
+        _.filter([1, 2, 3, 4, 5], function(num) { return num === 1; });
+      });
+
       it('should return all even numbers in an array', function() {
         var isEven = function(num) { return num % 2 === 0; };
         var evens = _.filter([1, 2, 3, 4, 5, 6], isEven);
@@ -275,6 +291,10 @@
 
     describe('reject', function() {
 
+      checkForNativeMethods(function() {
+        _.reject([1, 2, 3, 4, 5], function(num) { return num === 1; });
+      });
+
       it('should reject all even numbers', function() {
         var isEven = function(num) { return num % 2 === 0; };
         var odds = _.reject([1, 2, 3, 4, 5, 6], isEven);
@@ -298,6 +318,10 @@
     });
 
     describe('uniq', function() {
+
+      checkForNativeMethods(function() {
+        _.uniq([1, 2, 3, 4, 5]);
+      });
 
       it('should not mutate the input array', function() {
         var input = [1, 2, 3, 4, 5];
@@ -351,27 +375,10 @@
     });
 
     describe('map', function() {
-      // checkForNativeMethods(_.map([1, 2, 3, 4, 5], _.identity));
 
       checkForNativeMethods(function() {
         _.map([1, 2, 3, 4, 5], _.identity);
       });
-      // it('should not use any built-in functions', function() {
-      //   // WE KNOW THIS WORKS:
-      //   // var input = [1, 2, 3, 4, 5];
-      //   // var result = _.map(input, _.identity);
-      //   // expect(Array.prototype.map.called).to.equal(false);
-
-      //   var input = [1, 2, 3, 4, 5];
-      //   // var result = _.map(input, _.identity);
-      //   console.log(checkForNativeMethods(_.map(input, _.identity)));
-
-      //   // expect(Array.prototype.map.called).to.equal(false);
-
-      //   // TRYING THIS BASED ON INSTRUCTIONS:
-      //   var nativeNotUsed = checkForNativeMethods(_.map([1, 2, 3, 4, 5], _.identity));
-      //   //expect(nativeNotUsed).to.equal.false;
-      // });
 
       it('should not mutate the input array', function() {
         var input = [1, 2, 3, 4, 5];
@@ -421,6 +428,15 @@
 
     describe('pluck', function() {
 
+      var people = [
+        { name: 'moe', age: 30 },
+        { name: 'curly', age: 50 }
+      ];
+
+      checkForNativeMethods(function() {
+        _.pluck(people, 'name');
+      });
+
       it('should return values contained at a user-defined property', function() {
         var people = [
           { name: 'moe', age: 30 },
@@ -443,6 +459,10 @@
     });
 
     describe('reduce', function() {
+
+      checkForNativeMethods(function() {
+        _.reduce([3, 2, 1], function(memo, item) { return item; });
+      });
 
       it('should return a value', function() {
         var result = _.reduce([3, 2, 1], function(memo, item) { return item; });

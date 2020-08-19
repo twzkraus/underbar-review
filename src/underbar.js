@@ -119,9 +119,6 @@
       array.push(iterator(elem));
     });
     return array;
-    // var test = collection.map(iterator);
-    // //console.log(Array.prototype.map.called)
-    // return test
   };
 
   /*
