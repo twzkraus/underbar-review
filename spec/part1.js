@@ -21,6 +21,10 @@
 
     describe('identity', function() {
 
+      it('should not use any built-in functions', function() {
+        checkForNativeMethods(_.identity());
+      });
+
       it('should return whatever value is passed into it', function() {
         var uniqueObject = {};
         expect(_.identity(1)).to.equal(1);
@@ -71,6 +75,10 @@
     });
 
     describe('each', function() {
+
+      it('should not use any built-in functions', function() {
+        checkForNativeMethods(_.each);
+      });
 
       it('should not return anything', function() {
         var returnValue = _.each([], function() {});
@@ -270,7 +278,6 @@
       it('should reject all even numbers', function() {
         var isEven = function(num) { return num % 2 === 0; };
         var odds = _.reject([1, 2, 3, 4, 5, 6], isEven);
-
         expect(odds).to.eql([1, 3, 5]);
       });
 
@@ -344,6 +351,27 @@
     });
 
     describe('map', function() {
+      // checkForNativeMethods(_.map([1, 2, 3, 4, 5], _.identity));
+
+      checkForNativeMethods(function() {
+        _.map([1, 2, 3, 4, 5], _.identity);
+      });
+      // it('should not use any built-in functions', function() {
+      //   // WE KNOW THIS WORKS:
+      //   // var input = [1, 2, 3, 4, 5];
+      //   // var result = _.map(input, _.identity);
+      //   // expect(Array.prototype.map.called).to.equal(false);
+
+      //   var input = [1, 2, 3, 4, 5];
+      //   // var result = _.map(input, _.identity);
+      //   console.log(checkForNativeMethods(_.map(input, _.identity)));
+
+      //   // expect(Array.prototype.map.called).to.equal(false);
+
+      //   // TRYING THIS BASED ON INSTRUCTIONS:
+      //   var nativeNotUsed = checkForNativeMethods(_.map([1, 2, 3, 4, 5], _.identity));
+      //   //expect(nativeNotUsed).to.equal.false;
+      // });
 
       it('should not mutate the input array', function() {
         var input = [1, 2, 3, 4, 5];
